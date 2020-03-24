@@ -28,20 +28,20 @@
   }
   function loadXMLDoc(url) 
   {
-		var xmlhttp = null;
+    var xmlhttp = null;
     if(window.XMLHttpRequest)
       xmlhttp=new XMLHttpRequest();
     else
       xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
     if (xmlhttp != null) 
     {
-			xmlhttp.onreadystatechange = state_Change;
-			xmlhttp.open("GET", url, true);
+      xmlhttp.onreadystatechange = state_Change;
+      xmlhttp.open("GET", url, true);
       xmlhttp.send(null);
       return xmlhttp.status!=404;
     }
     return false;
-	}
+  }
 </script>
 <script>
   var articleURL="https://mysterious-Palace.github.io/markdown/article/";
@@ -60,7 +60,7 @@
       var i=1;
       while(true)
       {
-        //md("第"+String(i)+"章");
+        md("[第"+String(i)+"章]("+"../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".md)");
         urlmd=loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".md");
         urlhtml=loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".html");
         if(urlmd)
