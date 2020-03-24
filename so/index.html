@@ -39,8 +39,16 @@
     );
     document.write("<br/>");
     if(Number(getQueryVariable("id"))>1)
-      document.write("<div style=\"display:block;float:left;\"><a href=\"?name="+getQueryVariable("name")+"&id="+String(Number(getQueryVariable("id"))-1)+"\">上一章</a></div>");
-    document.write("<div style=\"display:block;float:right;\"><a href=\"?name="+getQueryVariable("name")+"&id="+String(Number(getQueryVariable("id"))+1)+"\">下一章</a></div>");
+      document.write(
+        "<div style=\"display:block;float:left;\"><a href=\"?name="+getQueryVariable("name")
+        +"&id="+String(Number(getQueryVariable("id"))-1)
+        +"\">上一章</a></div>"
+      );
+    document.write(
+      "<div style=\"display:block;float:right;\"><a href=\"?name="+getQueryVariable("name")
+      +"&id="+String(Number(getQueryVariable("id"))+1)
+      +"\">下一章</a></div>"
+    );
   }
 </script>
 </html>
