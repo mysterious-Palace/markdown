@@ -26,11 +26,16 @@
       if($scope.name==undefined||$scope.id==undefined)
         window.alert("数据不能为空!");
       else
-        window.location.replace(
+      {
+        window.open(
           "https://mysterious-palace.github.io/markdown/so/"
           +"?name="+$scope.name
           +"&id="+$scope.id
         );
+        window.opener=null;
+        window.open('','_self');
+        window.close();
+      }
     };
   });
   md("# 搜索");
