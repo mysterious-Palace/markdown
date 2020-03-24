@@ -21,6 +21,8 @@
     document.getElementById('content').innerHTML = 
     document.getElementById('content').innerHTML+marked(str)+"\n\n";
   }
+</script>
+<script>
   if(getQueryVariable("name")==false||getQueryVariable("id")==false)
   {
     md("# 404");
@@ -30,7 +32,11 @@
   {
     document.write("<title>"+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章</title>");
     md("# "+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章");
-    document.write("<iframe height=\"80%\" width=\"100%\" src=\"https://mysterious-Palace.github.io/markdown/article/"+decodeURI(getQueryVariable("name"))+"/"+getQueryVariable("id")+".html\" name=\"iframe1\"></iframe>");
+    document.write(
+      "<div height=\"80%\" width=\"100%\"><iframe height=\"100%\" width=\"100%\" src=\"https://mysterious-Palace.github.io/markdown/article/"
+      +decodeURI(getQueryVariable("name"))+"/"
+      +getQueryVariable("id")+".html\" name=\"iframe1\"></iframe></div>"
+    );
     document.write("<br/>");
     if(Number(getQueryVariable("id"))>1)
       document.write("<div style=\"display:block;float:left;\"><a href=\"?name="+getQueryVariable("name")+"&id="+String(Number(getQueryVariable("id"))-1)+"\">上一章</a></div>");
