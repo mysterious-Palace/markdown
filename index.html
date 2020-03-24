@@ -1,42 +1,151 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta content="width=device-width,user-scalable=no" name="viewport">
+<meta charset="UTF-8">
 <title>搜索</title>
+<meta content="width=device-width,user-scalable=no" name="viewport">
 <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<div id="content"></div>
-<body>
+<style>
+body{
+  margin:0px;
+  padding:0px;
+  font-family:sans-serif;
+  background: url(bs3.jpg);
+  background-size:cover;
+}
+.box{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  /*实现块元素百分比下居中*/
+  width:450px;
+  padding:50px;
+  background: rgba(0,0,0,.8);
+  box-sizing:border-box;
+  box-shadow: 0px 15px 25px rgba(0,0,0,.5);
+  border-radius:15px;
+}
+.box h2{
+  margin:0 0 30px;
+  padding:0;
+  color: #fff;
+  text-align:center;
+}
+.box .inputbox{
+  position:relative;
+}
+.box .inputbox input{
+  width: 100%;
+  padding:10px 0;
+  font-size:16px;
+  color:#fff;
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+  border:none;
+  border-bottom: 1px solid #fff;
+  outline:none;
+  background: transparent;
+}
+.box .inputbox label{
+  position:absolute;
+  top:0px;
+  left:0px;
+  padding:10px 0;
+  font-size: 16px;
+  color:#fff;
+  pointer-events:none;
+  transition:.5s;
+}
+.box .inputbox input:focus ~ label,
+.box .inputbox input:valid ~ label
+{
+  top:-32px;
+  left:0;
+  color:#03a9f4;
+  font-size:20px;
+}
+.box input[type="submit"]
+{
+  background: transparent;
+  border:none;
+  outline:none;
+  font-size: 16px;
+  color:#fff;
+  background: #03a9f4;
+  padding:15px 20px;
+  cursor: pointer;
+  border-radius:10px; 
+}
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #03a9f4;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 20px;
+  padding: 10px;
+  width: 100px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+.button span:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+.button:hover span {
+  padding-right: 25px;
+}
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+</style>
 <div ng-app="myApp" ng-controller="personCtrl">
-文章名: <input type=text ng-model="name"><br>
-章节(数字): <input type=text ng-model="id"><br>
-<button ng-click="toggle()">搜索</button>
+    <div class="box">
+        <h2>搜索</h2>
+        <form>
+            <div class="inputbox">
+                <input placeholder="请输入文章..." type="text" ng-model="name">
+                <label>文章</label>
+            </div>
+            <div class="inputbox">
+                <input placeholder="请输入章节(数字)..." type="text" ng-model="id">
+                <label>章节</label>
+            </div>
+        <button class="button" style="vertical-align:middle" ng-click="toggle()"><span>搜索</button>
+        </form>
+    </div>
 </div>
 <script>
-  function md(str)
-  {
-    document.getElementById('content').innerHTML = 
-    document.getElementById('content').innerHTML+marked(str)+"\n\n";
-  }
   var app = angular.module('myApp', []);
   app.controller('personCtrl', function($scope) {
     $scope.toggle = function() {
       if($scope.name==undefined||$scope.id==undefined)
         window.alert("数据不能为空!");
       else
-      {
-        window.open(
+        window.location.replace(
           "https://mysterious-palace.github.io/markdown/so/"
           +"?name="+$scope.name
           +"&id="+$scope.id
         );
-      }
     };
   });
-  md("# 搜索");
 </script>
-</body>
 </html>
