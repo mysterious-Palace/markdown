@@ -1,7 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8"/>
-<title>主页！</title>
-
+<meta charset="utf-8">
+<title>搜索</title>
+<script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<div id="content"></div>
+<body>
+<div ng-app="myApp" ng-controller="personCtrl">
+文章名: <input type=text ng-model="name"><br>
+章节(数字): <input type=text ng-model="id"><br>
+<button ng-click="toggle()">搜索</button>
+</div>
+<script>
+  function md(str)
+  {
+    document.getElementById('content').innerHTML = 
+    document.getElementById('content').innerHTML+marked(str)+"\n\n";
+  }
+  var app = angular.module('myApp', []);
+  app.controller('personCtrl', function($scope) {
+    $scope.toggle = function() {
+      if($scope.name==undefined||$scope.id==undefined)
+        window.alert("数据不能为空!");
+      else
+        window.location.replace(
+          "https://mysterious-palace.github.io/markdown/so/"
+          +"?name="+$scope.name
+          +"&id="+$scope.id
+        );
+    };
+  });
+  md("# 搜索");
+</script>
+</body>
 </html>
