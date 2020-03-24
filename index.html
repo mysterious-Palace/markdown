@@ -140,7 +140,8 @@ body{
       if($scope.name==undefined||$scope.id==undefined)
         window.alert("数据不能为空!");
       else
-        window.location.replace(
+        //window.location.replace
+        top.location.href=(
           "https://mysterious-palace.github.io/markdown/so/"
           +"?name="+$scope.name
           +"&id="+$scope.id
