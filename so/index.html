@@ -54,6 +54,8 @@
   {
     if(getQueryVariable("directory")=="true")
     {
+      //--------------------------------------------------------------------------
+      //正在开发，目录页自动生成~~~
       var urlhtml,urlmd;
       document.write("<title>"+decodeURI(getQueryVariable("name"))+"-目录</title>");
       md("# "+decodeURI(getQueryVariable("name"))+"-目录");
@@ -71,6 +73,8 @@
           break;
         i++;
       }
+      //此框内是未完成的部分
+      //--------------------------------------------------------------------------
     }
     else
     {
