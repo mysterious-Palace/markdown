@@ -26,34 +26,82 @@
   {
     $(that).height(document.documentElement.clientHeight-120);
   }
+  function loadXMLDoc(url) 
+  {
+		var xmlhttp = null;
+    if(window.XMLHttpRequest)
+      xmlhttp=new XMLHttpRequest();
+    else
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    if (xmlhttp != null) 
+    {
+			xmlhttp.onreadystatechange = state_Change;
+			xmlhttp.open("GET", url, true);
+      xmlhttp.send(null);
+      return xmlhttp.status!=404;
+    }
+    return false;
+	}
 </script>
 <script>
-  if(getQueryVariable("name")==false||getQueryVariable("id")==false)
+  var articleURL="https://mysterious-Palace.github.io/markdown/article/";
+  if(getQueryVariable("name")==false||(getQueryVariable("id")==false&&getQueryVariable("directory")==false))
   {
     md("# 404");
-    md("## 没有搜索数据！");
+    md("## 没有搜索不全！");
   }
   else
   {
-    document.write("<title>"+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章</title>");
-    md("# "+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章");
-    document.write(
-      "<iframe height=\"100%\" width=\"100%\" onload=\"changeFrameHeight(this)\" src=\"https://mysterious-Palace.github.io/markdown/article/"
-      +decodeURI(getQueryVariable("name"))+"/"
-      +getQueryVariable("id")+".html\" name=\"iframe1\"></iframe>"
-    );
-    document.write("<br/>");
-    if(Number(getQueryVariable("id"))>1)
-      document.write(
-        "<div style=\"display:block;float:left;\"><a href=\"?name="+getQueryVariable("name")
-        +"&id="+String(Number(getQueryVariable("id"))-1)
-        +"\">上一章</a></div>"
+    if(getQueryVariable("directory")=="true")
+    {
+      var urlhtml,urlmd;
+      document.write("<title>"+decodeURI(getQueryVariable("name"))+"-目录</title>");
+      md("# "+decodeURI(getQueryVariable("name"))+"-目录");
+      var i=1;
+      while(true)
+      {
+        //md("第"+String(i)+"章");
+        urlmd=loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".md");
+        urlhtml=loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".html");
+        if(urlmd)
+          md("[第"+String(i)+"章]("+articleURL+decodeURI(getQueryVariable("name"))+"/"+getQueryVariable("id")+".md)");
+        else if(urlhtml)
+          md("[第"+String(i)+"章]("+articleURL+decodeURI(getQueryVariable("name"))+"/"+getQueryVariable("id")+".html)");
+        else
+          break;
+        i++;
+      }
+    }
+    else
+    {
+      document.write("<title>"+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章</title>");
+      md(
+        "# "+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章"
+        +" | "
+        +"[返回目录](?name="+getQueryVariable("name")
+        +"&directory=true"
+        +")"
       );
-    document.write(
-      "<div style=\"display:block;float:right;\"><a href=\"?name="+getQueryVariable("name")
-      +"&id="+String(Number(getQueryVariable("id"))+1)
-      +"\">下一章</a></div>"
-    );
+      document.write(
+        "<iframe height=\"100%\" width=\"100%\" onload=\"changeFrameHeight(this)\" src=\""
+        +articleURL
+        +decodeURI(getQueryVariable("name"))+"/"
+        +getQueryVariable("id")+".html\" name=\"iframe1\"></iframe>"
+      );
+      document.write("<br/>");
+      if(Number(getQueryVariable("id"))>1)
+        document.write(
+          "<div style=\"display:block;float:left;\"><a href=\"?name="+getQueryVariable("name")
+          +"&id="+String(Number(getQueryVariable("id"))-1)
+          +"\">上一章</a></div>"
+        );
+      if(Number(getQueryVariable("id"))!=0)
+        document.write(
+          "<div style=\"display:block;float:right;\"><a href=\"?name="+getQueryVariable("name")
+          +"&id="+String(Number(getQueryVariable("id"))+1)
+          +"\">下一章</a></div>"
+        );
+    }
   }
 </script>
 </html>
