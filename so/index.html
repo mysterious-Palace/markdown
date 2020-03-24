@@ -56,6 +56,7 @@
     {
       //--------------------------------------------------------------------------
       //正在开发，目录页自动生成~~~
+      md("# 目录页尚未完成！！！");
       var urlhtml,urlmd;
       document.write("<title>"+decodeURI(getQueryVariable("name"))+"-目录</title>");
       md("# "+decodeURI(getQueryVariable("name"))+"-目录");
@@ -84,6 +85,8 @@
         +" | "
         +"[返回目录](?name="+getQueryVariable("name")
         +"&directory=true"
+        +" | "
+        +"[返回搜索页](https://mysterious-Palace.github.io/markdown/)"
         +")"
       );
       document.write(
