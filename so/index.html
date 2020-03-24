@@ -21,6 +21,10 @@
     document.getElementById('content').innerHTML = 
     document.getElementById('content').innerHTML+marked(str)+"\n\n";
   }
+  function changeFrameHeight(that)
+  {
+    $(that).height(document.documentElement.clientHeight-120);
+  }
 </script>
 <script>
   if(getQueryVariable("name")==false||getQueryVariable("id")==false)
@@ -33,9 +37,9 @@
     document.write("<title>"+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章</title>");
     md("# "+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章");
     document.write(
-      "<div height=\"80%\" width=\"100%\"><iframe height=\"100%\" width=\"100%\" src=\"https://mysterious-Palace.github.io/markdown/article/"
+      "<iframe height=\"100%\" width=\"100%\" onload=\"changeFrameHeight(this)\" src=\"https://mysterious-Palace.github.io/markdown/article/"
       +decodeURI(getQueryVariable("name"))+"/"
-      +getQueryVariable("id")+".html\" name=\"iframe1\"></iframe></div>"
+      +getQueryVariable("id")+".html\" name=\"iframe1\"></iframe>"
     );
     document.write("<br/>");
     if(Number(getQueryVariable("id"))>1)
