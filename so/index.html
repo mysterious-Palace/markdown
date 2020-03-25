@@ -28,19 +28,19 @@
   }
   function loadXMLDoc(url)
   {
-  	var xmlhttp;
-  	var urlbool=false;
-	  if (window.XMLHttpRequest)
-	  	xmlhttp=new XMLHttpRequest();
-	  else
-	  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  	xmlhttp.onreadystatechange=function()
+    var xmlhttp;
+    var urlbool=false;
+    if (window.XMLHttpRequest)
+      xmlhttp=new XMLHttpRequest();
+    else
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    xmlhttp.onreadystatechange=function()
     {
-  		if(xmlhttp.readyState==4 && xmlhttp.status==200)
-	  		urlbool=true;
+      if(xmlhttp.readyState==4 && xmlhttp.status==200)
+        urlbool=true;
     }
-  	xmlhttp.open("GET",url,false);
-  	xmlhttp.send();
+    xmlhttp.open("GET",url,false);
+    xmlhttp.send();
     return urlbool;
   }
 </script>
@@ -94,7 +94,7 @@
           +"&id="+String(Number(getQueryVariable("id"))-1)
           +"\">上一章</a></div>"
         );
-      if(Number(getQueryVariable("id"))!=0)
+      if(loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i+1)+".html"))
         document.write(
           "<div style=\"display:block;float:right;\"><a href=\"?name="+getQueryVariable("name")
           +"&id="+String(Number(getQueryVariable("id"))+1)
