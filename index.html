@@ -22,7 +22,6 @@ body{
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  /*实现块元素百分比下居中*/
   width:450px;
   padding:50px;
   background: rgba(0,0,0,.8);
@@ -126,7 +125,7 @@ body{
                 <label>文章</label>
             </div>
             <div class="inputbox">
-                <input placeholder="请输入章节(数字)..." type="text" ng-model="id">
+                <input placeholder="请输入章节(数字,不填进入目录)..." type="text" ng-model="id">
                 <label>章节</label>
             </div>
         <button class="button" style="vertical-align:middle" ng-click="toggle()"><span>搜索</button>
@@ -137,8 +136,14 @@ body{
   var app = angular.module('myApp', []);
   app.controller('personCtrl', function($scope) {
     $scope.toggle = function() {
-      if($scope.name==undefined||$scope.id==undefined)
-        window.alert("数据不能为空!");
+      if($scope.id==undefined)
+        top.location.href=(
+          "https://mysterious-palace.github.io/markdown/so/"
+          +"?name="+$scope.name
+          +"&directory=true"
+        );
+      else if($scope.name==undefined)
+        window.alert("文章名不能为空!");
       else
         //window.location.replace
         top.location.href=(
