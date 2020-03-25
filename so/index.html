@@ -55,9 +55,6 @@
   {
     if(getQueryVariable("directory")=="true")
     {
-      //--------------------------------------------------------------------------
-      //正在开发，目录页自动生成~~~
-      md("# 目录页尚未完成！！！");
       var urlhtml,urlmd;
       document.write("<title>"+decodeURI(getQueryVariable("name"))+"-目录</title>");
       md("# "+decodeURI(getQueryVariable("name"))+"-目录");
@@ -66,16 +63,12 @@
       {
         urlmd=loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".md");
         urlhtml=loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".html");
-        if(urlmd)
-          md("[第"+String(i)+"章]("+articleURL+decodeURI(getQueryVariable("name"))+"/"+getQueryVariable("id")+".md)");
-        else if(urlhtml)
-          md("[第"+String(i)+"章]("+articleURL+decodeURI(getQueryVariable("name"))+"/"+getQueryVariable("id")+".html)");
+        if(urlmd||urlhtml)
+          md("[第"+String(i)+"章]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
         else
           break;
         i++;
       }
-      //此框内是未完成的部分
-      //--------------------------------------------------------------------------
     }
     else
     {
