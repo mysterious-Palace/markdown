@@ -26,21 +26,22 @@
   {
     $(that).height(document.documentElement.clientHeight-120);
   }
-  function loadXMLDoc(url) 
+  function loadXMLDoc(url)
   {
-    var xmlhttp = null;
-    if(window.XMLHttpRequest)
-      xmlhttp=new XMLHttpRequest();
-    else
-      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-    if (xmlhttp != null) 
+  	var xmlhttp;
+  	var urlbool=false;
+	  if (window.XMLHttpRequest)
+	  	xmlhttp=new XMLHttpRequest();
+	  else
+	  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  	xmlhttp.onreadystatechange=function()
     {
-      xmlhttp.onreadystatechange = state_Change;
-      xmlhttp.open("GET", url, true);
-      xmlhttp.send(null);
-      return xmlhttp.status!=404;
+  		if(xmlhttp.readyState==4 && xmlhttp.status==200)
+	  		urlbool=true;
     }
-    return false;
+  	xmlhttp.open("GET",url,false);
+  	xmlhttp.send();
+    return urlbool;
   }
 </script>
 <script>
@@ -63,7 +64,6 @@
       var i=1;
       while(true)
       {
-        md("[第"+String(i)+"章]("+"../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".md)");
         urlmd=loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".md");
         urlhtml=loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".html");
         if(urlmd)
