@@ -80,7 +80,12 @@
         var patt1 = /<title>(.*?)<\/title>/;
         var str=urlstr.match(patt1);
         if(urlhtml)
-          md("[第"+String(i)+"章"+str+"]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
+        {
+          if(str==null)
+            md("[第"+String(i)+"章 ,作者忘记命名标题啦~]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
+          else
+            md("[第"+String(i)+"章 "+str+"]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
+        }
         else
           break;
         i++;
