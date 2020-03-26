@@ -77,7 +77,7 @@
         }
         xmlhttp.open("GET","../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".html",false);
         xmlhttp.send();
-        var patt1 = /<title>(.*?)<\/title>/;
+        var patt1 = /<title>,(.*?)<\/title>/;
         document.write();
         if(urlhtml)
           md("[第"+String(i)+"章 ("+urlstr.match(patt1)+")]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
