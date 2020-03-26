@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -136,7 +135,7 @@ body{
   var app = angular.module('myApp', []);
   app.controller('personCtrl', function($scope) {
     $scope.toggle = function() {
-      if($scope.id==undefined)
+      if($scope.id==undefined&&$scope.name!=undefined)
         top.location.href=(
           "https://mysterious-palace.github.io/markdown/so/"
           +"?name="+$scope.name
