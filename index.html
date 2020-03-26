@@ -135,7 +135,7 @@ body{
   var app = angular.module('myApp', []);
   app.controller('personCtrl', function($scope) {
     $scope.toggle = function() {
-      if($scope.id==undefined&&$scope.name!=undefined&&$scope.name!="")
+      if(($scope.id==undefined||$scope.id=="")&&$scope.name!=undefined&&$scope.name!="")
         top.location.href=(
           "https://mysterious-palace.github.io/markdown/so/"
           +"?name="+$scope.name
