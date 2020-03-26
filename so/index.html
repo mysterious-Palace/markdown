@@ -85,8 +85,8 @@
         var str=urlstr.match(patt1);
         if(urlhtml)
         {
-          if(str==null||str=",markdown")
-            md("[第"+String(i)+"章 ,作者忘记命名标题啦~]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
+          if(str==null||str==",markdown")
+            md("[第"+String(i)+"章 ,[作者忘记命名标题啦~]]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
           else
             md("[第"+String(i)+"章 "+str+"]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
         }
