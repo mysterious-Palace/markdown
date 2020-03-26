@@ -135,13 +135,13 @@ body{
   var app = angular.module('myApp', []);
   app.controller('personCtrl', function($scope) {
     $scope.toggle = function() {
-      if($scope.id==undefined&&$scope.name!=undefined)
+      if($scope.id==undefined&&$scope.name!=undefined&&$scope.name!="")
         top.location.href=(
           "https://mysterious-palace.github.io/markdown/so/"
           +"?name="+$scope.name
           +"&directory=true"
         );
-      else if($scope.name==undefined)
+      else if($scope.name==undefined||$scope.name=="")
         window.alert("文章名不能为空!");
       else
         //window.location.replace
