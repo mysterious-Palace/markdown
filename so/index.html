@@ -5,7 +5,6 @@
 <meta content="width=device-width,user-scalable=no" name="viewport">
 <script src="https://cdn.jsdelivr.net/npm/jquery/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<div id="biaoti"></div>
 <div id="content"></div>
 <script>
   function getQueryVariable(variable)
@@ -49,15 +48,18 @@
   var articleURL="https://mysterious-Palace.github.io/markdown/article/";
   if(getQueryVariable("name")==false||(getQueryVariable("id")==false&&getQueryVariable("directory")==false))
   {
-    document.getElementById('biaoti').innerHTML="<title>搜索失败！</title>";
+    document.write("<title>搜索失败！</title>");
     md("# 404");
     md("## 搜索数据不全！");
   }
   else
   {
     if(getQueryVariable("directory")=="true")
+      document.write("<title>"+decodeURI(getQueryVariable("name"))+"-目录</title>");
+    else
+      document.write("<title>"+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章</title>");
+    if(getQueryVariable("directory")=="true")
     {
-      document.getElementById('biaoti').innerHTML="<title>"+decodeURI(getQueryVariable("name"))+"-目录</title>";
       var urlhtml,urlstr;
       md("# "+decodeURI(getQueryVariable("name"))+"-目录 | [返回搜索页](https://mysterious-Palace.github.io/markdown/)");
       var i=1;
@@ -97,7 +99,6 @@
     }
     else
     {
-      document.getElementById('biaoti').innerHTML="<title>"+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章</title>";
       md(
         "# "+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章"
         +" | "
