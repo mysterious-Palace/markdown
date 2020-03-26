@@ -48,47 +48,24 @@
   var articleURL="https://mysterious-Palace.github.io/markdown/article/";
   if(getQueryVariable("name")==false||(getQueryVariable("id")==false&&getQueryVariable("directory")==false))
   {
-    document.write("<title>搜索失败！</title>");
     md("# 404");
     md("## 搜索数据不全！");
   }
   else
   {
     if(getQueryVariable("directory")=="true")
-      document.write("<title>"+decodeURI(getQueryVariable("name"))+"-目录</title>");
-    else
-      document.write("<title>"+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章</title>");
-    if(getQueryVariable("directory")=="true")
     {
-      var urlhtml,urlstr;
+      var urlhtml,urlmd;
+      document.write("<title>"+decodeURI(getQueryVariable("name"))+"-目录</title>");
       md("# "+decodeURI(getQueryVariable("name"))+"-目录 | [返回搜索页](https://mysterious-Palace.github.io/markdown/)");
       var i=1;
       while(true)
       {
-        urlhtml=false;
-        var xmlhttp;
-        if (window.XMLHttpRequest)
-          xmlhttp=new XMLHttpRequest();
-        else
-          xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-        xmlhttp.onreadystatechange=function()
+        urlmd=loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".md");
+        urlhtml=loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".html");
+        if(urlmd||urlhtml)
         {
-          if (xmlhttp.readyState==4 && xmlhttp.status==200)
-          {
-            urlstr=xmlhttp.responseText;
-            urlhtml=true;
-          }
-        }
-        xmlhttp.open("GET","../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".html",false);
-        xmlhttp.send();
-        var patt1 = /<title>(.*?)<\/title>/;
-        var str=urlstr.match(patt1);
-        if(urlhtml)
-        {
-          if(str==null||str==",markdown")
-            md("[第"+String(i)+"章 ,[作者忘记命名标题啦~]]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
-          else
-            md("[第"+String(i)+"章 "+str+"]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
+          md("[第"+String(i)+"章]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
         }
         else
           break;
@@ -99,6 +76,7 @@
     }
     else
     {
+      document.write("<title>"+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章</title>");
       md(
         "# "+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章"
         +" | "
