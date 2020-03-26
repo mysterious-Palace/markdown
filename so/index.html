@@ -98,7 +98,7 @@
           +"&id="+String(parseInt(Number(getQueryVariable("id")))-1)
           +"\">上一章</a></div>"
         );
-      if(loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(parseInt(Number(i))+1)+".html"))
+      if(loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(parseInt(Number(getQueryVariable("id")))+1)+".html"))
         document.write(
           "<div style=\"display:block;float:right;\"><a href=\"?name="+getQueryVariable("name")
           +"&id="+String(parseInt(Number(getQueryVariable("id")))+1)
