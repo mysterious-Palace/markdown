@@ -54,9 +54,12 @@
   else
   {
     if(getQueryVariable("directory")=="true")
+      document.write("<title>"+decodeURI(getQueryVariable("name"))+"-目录</title>");
+    else
+      document.write("<title>"+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章</title>");
+    if(getQueryVariable("directory")=="true")
     {
       var urlhtml,urlstr;
-      document.write("<title>"+decodeURI(getQueryVariable("name"))+"-目录</title>");
       md("# "+decodeURI(getQueryVariable("name"))+"-目录 | [返回搜索页](https://mysterious-Palace.github.io/markdown/)");
       var i=1;
       while(true)
@@ -95,7 +98,6 @@
     }
     else
     {
-      document.write("<title>"+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章</title>");
       md(
         "# "+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章"
         +" | "
