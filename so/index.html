@@ -66,7 +66,7 @@
         if(urlmd||urlhtml)
         {
           var mly="[第"+String(i)+"章]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")";
-          if(i%5==0)
+          if(console.log(i%5)==0)
             document.getElementById('content').innerHTML = 
             document.getElementById('content').innerHTML
               +marked(mly)+"\n\n";
