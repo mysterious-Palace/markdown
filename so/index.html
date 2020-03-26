@@ -65,15 +65,14 @@
         urlhtml=loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".html");
         if(urlmd||urlhtml)
         {
+          var mly="[第"+String(i)+"章]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")";
+          if(i%5==0)
+            mly += "\n\n";
+          else
+            mly += " | ";
           document.getElementById('content').innerHTML = 
           document.getElementById('content').innerHTML
-            +marked("[第"+String(i)+"章]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
-          if(i%5==0)
-            document.getElementById('content').innerHTML = 
-            document.getElementById('content').innerHTML + "\n\n";
-          else
-            document.getElementById('content').innerHTML = 
-            document.getElementById('content').innerHTML + " | ";
+            +marked(mly);
         }
         else
           break;
