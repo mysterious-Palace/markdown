@@ -67,12 +67,13 @@
         {
           var mly="[第"+String(i)+"章]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")";
           if(i%5==0)
-            mly += "\n\n";
+            document.getElementById('content').innerHTML = 
+            document.getElementById('content').innerHTML
+              +marked(mly)+"\n\n";
           else
-            mly += " | ";
-          document.getElementById('content').innerHTML = 
-          document.getElementById('content').innerHTML
-            +marked(mly);
+            document.getElementById('content').innerHTML = 
+            document.getElementById('content').innerHTML
+              +marked(mly+" | ");
         }
         else
           break;
