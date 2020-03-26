@@ -55,18 +55,32 @@
   {
     if(getQueryVariable("directory")=="true")
     {
-      var urlhtml,urlmd;
+      var urlhtml,urlstr;
       document.write("<title>"+decodeURI(getQueryVariable("name"))+"-目录</title>");
       md("# "+decodeURI(getQueryVariable("name"))+"-目录 | [返回搜索页](https://mysterious-Palace.github.io/markdown/)");
       var i=1;
       while(true)
       {
-        urlmd=loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".md");
-        urlhtml=loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".html");
-        if(urlmd||urlhtml)
+        urlhtml=false;
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+          xmlhttp=new XMLHttpRequest();
+        else
+          xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        xmlhttp.onreadystatechange=function()
         {
-          md("[第"+String(i)+"章]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
+          if (xmlhttp.readyState==4 && xmlhttp.status==200)
+          {
+            urlstr=xmlhttp.responseText;
+            urlhtml=true;
+          }
         }
+        xmlhttp.open("GET","../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".html",false);
+        xmlhttp.send();
+        var patt1 = /<title>(.*?)<\/title>/;
+        document.write();
+        if(urlhtml)
+          md("[第"+String(i)+"章 ("+urlstr.match(patt1)+")]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
         else
           break;
         i++;
