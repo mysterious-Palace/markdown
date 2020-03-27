@@ -89,7 +89,7 @@
           for(var x=i-cw;x<i;x++)
             md("第"+String(x)+"章 ,[空缺!请作者尽快补上哦]");
           cw=0;
-          if(str==null||str=="markdown")
+          if(str==null||str==",markdown")
             md("[第"+String(i)+"章 ,[作者忘记命名标题啦~]]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
           else
             md("[第"+String(i)+"章 "+str+"]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
