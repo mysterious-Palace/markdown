@@ -63,6 +63,7 @@
       var urlhtml,urlstr;
       md("# "+decodeURI(getQueryVariable("name"))+"-目录 | [返回搜索页](https://mysterious-Palace.github.io/markdown/)");
       var i=1;
+      var cw=0;
       while(true)
       {
         urlhtml=false;
@@ -85,17 +86,23 @@
         var str=urlstr.match(patt1);
         if(urlhtml)
         {
+          cw=0;
           if(str==null||str==",markdown")
             md("[第"+String(i)+"章 ,[作者忘记命名标题啦~]]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
           else
             md("[第"+String(i)+"章 "+str+"]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
         }
         else
-          break;
+        {
+          if(cw>3)
+            break;
+          else
+            cw++;
+        }
         i++;
       }
       if(i==1)
-        md("## 本文暂无章节")
+        md("## 本文暂无章节");
     }
     else
     {
