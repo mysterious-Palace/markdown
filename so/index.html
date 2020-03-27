@@ -94,10 +94,13 @@
         }
         else
         {
-          if(cw>3)
+          if(cw>=3)
             break;
           else
+          {
             cw++;
+            md("第"+String(i)+"章 ,[空缺!请作者尽快补上哦]");
+          }
         }
         i++;
       }
