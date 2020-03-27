@@ -89,14 +89,14 @@
           for(var x=i-cw;x<i;x++)
             md("第"+String(x)+"章 ,[空缺!请作者尽快补上哦]");
           cw=0;
-          if(str==null||str==",markdown")
+          if(str==null||str=="markdown")
             md("[第"+String(i)+"章 ,[作者忘记命名标题啦~]]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
           else
             md("[第"+String(i)+"章 "+str+"]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
         }
         else
         {
-          if(cw>=2)
+          if(cw>=3)
             break;
           else
             cw++;
@@ -105,6 +105,8 @@
       }
       if(i==1)
         md("## 本文暂无章节");
+      else
+        md("到底啦~~~");
     }
     else
     {
