@@ -5,7 +5,81 @@
 <meta content="width=device-width,user-scalable=no" name="viewport">
 <script src="https://cdn.jsdelivr.net/npm/jquery/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<div id="content"></div>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: Arial;
+    padding: 10px;
+    background: #f1f1f1;
+  }
+  .header {
+    padding: 30px;
+    text-align: center;
+    background: white;
+  }
+  .header h1 {
+    font-size: 50px;
+  }
+  .topnav {
+    overflow: hidden;
+    background-color: #333;
+  }
+  li {
+    float: left;
+  }
+  .topnav  {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+  .topnav a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  .topnav a:hover:not(.active) {
+    background-color: #111;
+  }
+  .fakeimg {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+  }
+  .card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .footer {
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+    margin-top: 20px;
+  }
+  @media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {   
+      width: 100%;
+      padding: 0;
+    }
+  }
+  @media screen and (max-width: 400px) {
+    .topnav a {
+      float: none;
+      width: 100%;
+    }
+  }
+</style>
 <script>
   function getQueryVariable(variable)
   {
@@ -43,14 +117,97 @@
     xmlhttp.send();
     return urlbool;
   }
+  function iframegd(strid) 
+  {
+    var ifr = document.getElementById(strid);
+    ifr.onload = function() 
+    {
+      ifr.style.height = 0+'px';
+      var iDoc = ifr.contentDocument || ifr.contentWindow.document;
+      var height = iDoc.documentElement.clientHeight || iDoc.body.clientHeight;
+      console.log(iDoc.documentElement.clientHeight,iDoc.body.clientHeight);
+      ifr.style.height = height + 'px';
+      console.log(height);   
+    }
+  }
 </script>
+<script>
+  document.write("<style>");
+  document.write(".leftcolumn {");
+  document.write("  float: left;");
+  if(getQueryVariable("menu")=="right")
+    document.write("  width: 75%;");
+  else
+    document.write("  width: 25%;");
+  document.write(" }");
+  document.write(".rightcolumn {");
+  document.write("  float: left;");
+  if(getQueryVariable("menu")=="right")
+    document.write("  width: 25%;");
+  else
+    document.write("  width: 75%;");
+  document.write("  background-color: #f1f1f1;");
+  document.write("  padding-left: 20px;");
+  document.write("}");
+  document.write("</style>");
+</script>
+<body>
+  <div class="topnav">
+    <li><a href="https://mysterious-palace.github.io/markdown/">搜索</a></li>
+    <script>
+      if(getQueryVariable("menu")=="right")
+      {
+        document.write("<li><a href=\"?name="+getQueryVariable("name")+"&directory=true&menu=right\">目录</a></li>");
+        if(getQueryVariable("directory")=="true")
+          document.write("<li style=\"float:right\"><a href=\"?name="+getQueryVariable("name")+"&directory=true\">排版切换</a></li>");
+        else
+          document.write("<li style=\"float:right\"><a href=\"?name="+getQueryVariable("name")+"&id="+getQueryVariable("id")+"\">排版切换</a></li>");
+      }
+      else
+      {
+        document.write("<li><a href=\"?name="+getQueryVariable("name")+"&directory=true\">目录</a></li>");
+        if(getQueryVariable("directory")=="true")
+          document.write("<li style=\"float:right\"><a href=\"?name="+getQueryVariable("name")+"&directory=true&menu=right\">排版切换</a></li>");
+        else
+          document.write("<li style=\"float:right\"><a href=\"?name="+getQueryVariable("name")+"&id="+getQueryVariable("id")+"&menu=right\">排版切换</a></li>");
+      }
+    </script>
+  </div>
+  <div class="row">
+    <div class="leftcolumn">
+      <div class="card">
+        <script>
+          if(getQueryVariable("menu")=="right")
+          {
+            document.write("<div id=\"content\"></div>");
+            document.write("<div class=\"B\"></div>");
+          }
+          else
+            document.write("<div class=\"A\"></div>");
+        </script>
+      </div>
+    </div>
+    <div class="rightcolumn">
+      <div class="card">
+        <script>
+          if(getQueryVariable("menu")!="right")
+          {
+            document.write("<div id=\"content\"></div>");
+            document.write("<div class=\"A\"></div>");
+          }
+          else
+            document.write("<div class=\"B\"></div>");
+        </script>
+      </div>
+    </div>
+  </div>
 <script>
   var articleURL="https://mysterious-Palace.github.io/markdown/article/";
   if(getQueryVariable("name")==false||(getQueryVariable("id")==false&&getQueryVariable("directory")==false))
   {
     document.write("<title>搜索失败！</title>");
-    md("# 404");
-    md("## 搜索数据不全！");
+    md("# 404!搜索数据不全！");
+    md("![](https://www.runoob.com/wp-content/themes/runoob/assets/img/404.jpg)");
   }
   else
   {
@@ -61,7 +218,8 @@
     if(getQueryVariable("directory")=="true")
     {
       var urlhtml,urlstr;
-      md("# "+decodeURI(getQueryVariable("name"))+"-目录 | [返回搜索页](https://mysterious-Palace.github.io/markdown/)");
+      //md("# "+decodeURI(getQueryVariable("name"))+"-目录 | [返回搜索页](https://mysterious-Palace.github.io/markdown/)");
+      document.getElementById('B').innerHTML += "<h1>"+decodeURI(getQueryVariable("name"))+"-目录"+"</h1>"+"\n\n";
       var i=1;
       var cw=0;
       while(true)
@@ -110,34 +268,37 @@
     }
     else
     {
-      md(
+      /*md(
         "# "+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章"
         +" | "
         +"[返回目录](?name="+getQueryVariable("name")
         +"&directory=true"
         +") | "
         +"[返回搜索页](https://mysterious-Palace.github.io/markdown/)"
-      );
-      document.write(
-        "<iframe height=\"100%\" width=\"100%\" onload=\"changeFrameHeight(this)\" src=\""
+      );*/
+      document.getElementById('B').innerHTML += "<h1>"+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章"+"</h1>"+"\n\n";
+      document.getElementById('A').innerHTML += 
+        "<iframe id=\"iframe1\" width=\"100%\" onload=\"changeFrameHeight(this)\" src=\""
         +articleURL
         +decodeURI(getQueryVariable("name"))+"/"
-        +getQueryVariable("id")+".html\" name=\"iframe1\"></iframe>"
-      );
-      document.write("<br/>");
+        +getQueryVariable("id")+".html\"></iframe>"
+        +"\n\n";
+      iframegd('iframe1');
+      document.getElementById('A').innerHTML += "<br/>"+"\n\n";
       if(parseInt(Number(getQueryVariable("id")))>1)
-        document.write(
+        document.getElementById('A').innerHTML += 
           "<div style=\"display:block;float:left;\"><a href=\"?name="+getQueryVariable("name")
           +"&id="+String(parseInt(Number(getQueryVariable("id")))-1)
           +"\">上一章</a></div>"
-        );
+          +"\n\n";
       if(loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(parseInt(Number(getQueryVariable("id")))+1)+".html"))
-        document.write(
+        document.getElementById('A').innerHTML += 
           "<div style=\"display:block;float:right;\"><a href=\"?name="+getQueryVariable("name")
           +"&id="+String(parseInt(Number(getQueryVariable("id")))+1)
           +"\">下一章</a></div>"
-        );
+          +"\n\n";
     }
   }
 </script>
+</body>
 </html>
