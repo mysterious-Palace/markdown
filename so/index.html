@@ -190,13 +190,13 @@
     <div class="rightcolumn">
       <div class="card">
         <script>
-          if(getQueryVariable("menu")!="right")
+          if(getQueryVariable("menu")=="right")
+            document.write("<div class=\"A\"></div>");
+          else
           {
             document.write("<div id=\"content\"></div>");
-            document.write("<div class=\"A\"></div>");
-          }
-          else
             document.write("<div class=\"B\"></div>");
+          }
         </script>
       </div>
     </div>
