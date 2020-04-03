@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<meta content="width=device-width,user-scalable=no" name="viewport">
+<script src="https://cdn.jsdelivr.net/npm/jquery/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<div id="content"></div>
+<script>
+  function getQueryVariable(variable)
+  {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+      var pair = vars[i].split("=");
+      if(pair[0] == variable){return pair[1];}
+    }
+    return false;
+  }
+  function md(str)
+  {
+    document.getElementById('content').innerHTML = 
+    document.getElementById('content').innerHTML+marked(str)+"\n\n";
+  }
+  function changeFrameHeight(that)
+  {
+    $(that).height(document.documentElement.clientHeight-120);
+  }
+  function loadXMLDoc(url)
+  {
+    var xmlhttp;
+    var urlbool=false;
+    if (window.XMLHttpRequest)
+      xmlhttp=new XMLHttpRequest();
+    else
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    xmlhttp.onreadystatechange=function()
+    {
+      if(xmlhttp.readyState==4 && xmlhttp.status==200)
+        urlbool=true;
+    }
+    xmlhttp.open("GET",url,false);
+    xmlhttp.send();
+    return urlbool;
+  }
+</script>
+<script>
+  var articleURL="https://mysterious-Palace.github.io/markdown/article/";
+  if(getQueryVariable("name")==false||(getQueryVariable("id")==false&&getQueryVariable("directory")==false))
+  {
+    document.write("<title>搜索失败！</title>");
+    md("# 404");
+    md("## 搜索数据不全！");
+  }
+  else
+  {
+    if(getQueryVariable("directory")=="true")
+      document.write("<title>"+decodeURI(getQueryVariable("name"))+"-目录</title>");
+    else
+      document.write("<title>"+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章</title>");
+    if(getQueryVariable("directory")=="true")
+    {
+      var urlhtml,urlstr;
+      md("# "+decodeURI(getQueryVariable("name"))+"-目录 | [返回搜索页](https://mysterious-Palace.github.io/markdown/)");
+      var i=1;
+      var cw=0;
+      while(true)
+      {
+        urlhtml=false;
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+          xmlhttp=new XMLHttpRequest();
+        else
+          xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        xmlhttp.onreadystatechange=function()
+        {
+          if (xmlhttp.readyState==4 && xmlhttp.status==200)
+          {
+            urlstr=xmlhttp.responseText;
+            urlhtml=true;
+          }
+        }
+        xmlhttp.open("GET","../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".html",false);
+        xmlhttp.send();
+        var patt1 = /<title>(.*?)<\/title>/;
+        var str=urlstr.match(patt1);
+        if(urlhtml)
+        {
+          for(var x=i-cw;x<i;x++)
+            md("第"+String(x)+"章 ,[空缺!请作者尽快补上哦]");
+          cw=0;
+          if(str==null||str==",markdown")
+            md("[第"+String(i)+"章 ,[作者忘记命名标题啦~]]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
+          else
+            md("[第"+String(i)+"章 "+str+"]("+"?name="+getQueryVariable("name")+"&id="+String(i)+")");
+        }
+        else
+        {
+          if(cw>=3)
+            break;
+          else
+            cw++;
+        }
+        i++;
+      }
+      if(i==1)
+        md("## 本文暂无章节");
+      else
+        md("到底啦~~~");
+    }
+    else
+    {
+      md(
+        "# "+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章"
+        +" | "
+        +"[返回目录](?name="+getQueryVariable("name")
+        +"&directory=true"
+        +") | "
+        +"[返回搜索页](https://mysterious-Palace.github.io/markdown/)"
+      );
+      document.write(
+        "<iframe height=\"100%\" width=\"100%\" onload=\"changeFrameHeight(this)\" src=\""
+        +articleURL
+        +decodeURI(getQueryVariable("name"))+"/"
+        +getQueryVariable("id")+".html\" name=\"iframe1\"></iframe>"
+      );
+      document.write("<br/>");
+      if(parseInt(Number(getQueryVariable("id")))>1)
+        document.write(
+          "<div style=\"display:block;float:left;\"><a href=\"?name="+getQueryVariable("name")
+          +"&id="+String(parseInt(Number(getQueryVariable("id")))-1)
+          +"\">上一章</a></div>"
+        );
+      if(loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(parseInt(Number(getQueryVariable("id")))+1)+".html"))
+        document.write(
+          "<div style=\"display:block;float:right;\"><a href=\"?name="+getQueryVariable("name")
+          +"&id="+String(parseInt(Number(getQueryVariable("id")))+1)
+          +"\">下一章</a></div>"
+        );
+    }
+  }
+</script>
+</html>
