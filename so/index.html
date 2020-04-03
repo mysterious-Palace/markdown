@@ -82,7 +82,7 @@
         }
         xmlhttp.open("GET","../article/"+decodeURI(getQueryVariable("name"))+"/"+String(i)+".html",false);
         xmlhttp.send();
-        var patt1 = /<title>(.*?)<\/title>/;
+        var patt1 = /\<title[^\>]*\>\s*(?<Title>.*?)\s*\</title\>/;
         var str=urlstr.match(patt1);
         if(urlhtml)
         {
