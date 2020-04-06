@@ -277,12 +277,14 @@
         +"[返回搜索页](https://mysterious-Palace.github.io/markdown/)"
       );*/
       document.getElementById('divB').innerHTML += "<h1>"+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章"+"</h1>"+"\n\n";
-      /*document.getElementById('divA').innerHTML += 
-        "<iframe id=\"iframe1\" width=\"100%\" onload=\"changeFrameHeight(this)\" src=\"../"
+      document.getElementById('divA').innerHTML += 
+        "<iframe id=\"iframe1\" width=\"100%\" onload=\"changeFrameHeight(this)\" src=\""
+        +articleURL
         +decodeURI(getQueryVariable("name"))+"/"
         +getQueryVariable("id")+".html\"></iframe>"
         +"\n\n";*/
       //iframegd('iframe1');
+      /*
       $(document).ready(function(){
         $("#divA").load("../article/"+decodeURI(getQueryVariable("name"))+"/"+getQueryVariable("id")+".md",
           function(responseTxt,statusTxt,xhr){
@@ -293,6 +295,7 @@
           }
         );
       });
+      */
       document.getElementById('divA').innerHTML=marked(document.getElementById('divA').innerHTML);
       document.getElementById('divA').innerHTML += "<br/>"+"\n\n";
       if(parseInt(Number(getQueryVariable("id")))>1)
