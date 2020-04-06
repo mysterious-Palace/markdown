@@ -284,8 +284,13 @@
         +"\n\n";*/
       //iframegd('iframe1');
       $(document).ready(function(){
-        $("#A").load("../"+decodeURI(getQueryVariable("name"))+"/"+getQueryVariable("id")+".md");
-      });
+  $("#A").load("./1.txt",function(responseTxt,statusTxt,xhr){
+    if(statusTxt=="success")
+      alert("外部内容加载成功！");
+    if(statusTxt=="error")
+      alert("Error: "+xhr.status+": "+xhr.statusText);
+  });
+});
       document.getElementById('A').innerHTML=marked(document.getElementById('A').innerHTML);
       document.getElementById('A').innerHTML += "<br/>"+"\n\n";
       if(parseInt(Number(getQueryVariable("id")))>1)
