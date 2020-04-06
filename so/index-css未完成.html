@@ -284,12 +284,14 @@
         +"\n\n";*/
       //iframegd('iframe1');
       $(document).ready(function(){
-        $("#divA").load("./1.txt",function(responseTxt,statusTxt,xhr){
-          if(statusTxt=="success")
-            alert("外部内容加载成功！");
-          if(statusTxt=="error")
-            alert("Error: "+xhr.status+": "+xhr.statusText);
-        });
+        $("#divA").load("../article/"+decodeURI(getQueryVariable("name"))+"/"+getQueryVariable("id")+".md",
+          function(responseTxt,statusTxt,xhr){
+            if(statusTxt=="success")
+              alert("外部内容加载成功！");
+            if(statusTxt=="error")
+              alert("Error: "+xhr.status+": "+xhr.statusText);
+          }
+        );
       });
       document.getElementById('divA').innerHTML=marked(document.getElementById('divA').innerHTML);
       document.getElementById('divA').innerHTML += "<br/>"+"\n\n";
