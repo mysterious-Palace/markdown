@@ -180,10 +180,10 @@
           if(getQueryVariable("menu")=="right")
           {
             document.write("<div id=\"content\"></div>");
-            document.write("<div class=\"B\"></div>");
+            document.write("<div class=\"divB\"></div>");
           }
           else
-            document.write("<div class=\"A\"></div>");
+            document.write("<div class=\"divA\"></div>");
         </script>
       </div>
     </div>
@@ -191,11 +191,11 @@
       <div class="card">
         <script>
           if(getQueryVariable("menu")=="right")
-            document.write("<div class=\"A\"></div>");
+            document.write("<div class=\"divA\"></div>");
           else
           {
             document.write("<div id=\"content\"></div>");
-            document.write("<div class=\"B\"></div>");
+            document.write("<div class=\"divB\"></div>");
           }
         </script>
       </div>
@@ -276,31 +276,31 @@
         +") | "
         +"[返回搜索页](https://mysterious-Palace.github.io/markdown/)"
       );*/
-      document.getElementById('B').innerHTML += "<h1>"+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章"+"</h1>"+"\n\n";
-      /*document.getElementById('A').innerHTML += 
+      document.getElementById('divB').innerHTML += "<h1>"+decodeURI(getQueryVariable("name"))+"-第"+getQueryVariable("id")+"章"+"</h1>"+"\n\n";
+      /*document.getElementById('divA').innerHTML += 
         "<iframe id=\"iframe1\" width=\"100%\" onload=\"changeFrameHeight(this)\" src=\"../"
         +decodeURI(getQueryVariable("name"))+"/"
         +getQueryVariable("id")+".html\"></iframe>"
         +"\n\n";*/
       //iframegd('iframe1');
       $(document).ready(function(){
-  $("#A").load("./1.txt",function(responseTxt,statusTxt,xhr){
-    if(statusTxt=="success")
-      alert("外部内容加载成功！");
-    if(statusTxt=="error")
-      alert("Error: "+xhr.status+": "+xhr.statusText);
-  });
-});
-      document.getElementById('A').innerHTML=marked(document.getElementById('A').innerHTML);
-      document.getElementById('A').innerHTML += "<br/>"+"\n\n";
+        $("#divA").load("./1.txt",function(responseTxt,statusTxt,xhr){
+          if(statusTxt=="success")
+            alert("外部内容加载成功！");
+          if(statusTxt=="error")
+            alert("Error: "+xhr.status+": "+xhr.statusText);
+        });
+      });
+      document.getElementById('divA').innerHTML=marked(document.getElementById('divA').innerHTML);
+      document.getElementById('divA').innerHTML += "<br/>"+"\n\n";
       if(parseInt(Number(getQueryVariable("id")))>1)
-        document.getElementById('A').innerHTML += 
+        document.getElementById('divA').innerHTML += 
           "<div style=\"display:block;float:left;\"><a href=\"?name="+getQueryVariable("name")
           +"&id="+String(parseInt(Number(getQueryVariable("id")))-1)
           +"\">上一章</a></div>"
           +"\n\n";
       if(loadXMLDoc("../article/"+decodeURI(getQueryVariable("name"))+"/"+String(parseInt(Number(getQueryVariable("id")))+1)+".html"))
-        document.getElementById('A').innerHTML += 
+        document.getElementById('divA').innerHTML += 
           "<div style=\"display:block;float:right;\"><a href=\"?name="+getQueryVariable("name")
           +"&id="+String(parseInt(Number(getQueryVariable("id")))+1)
           +"\">下一章</a></div>"
