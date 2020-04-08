@@ -18,14 +18,14 @@
         <div id="div1"></sic>
 <script>
       $(document).ready(function(){
-        $("#div1").load("http://"+document.domain+"/markdown/so/README.md",
+        $("#div1").load("http://"+document.domain+"/markdown/so/README.md"/*,
           function(responseTxt,statusTxt,xhr){
             if(statusTxt=="success")
               alert("外部内容加载成功！");
             if(statusTxt=="error")
               alert("Error: "+xhr.status+": "+xhr.statusText);
           }
-        );
+        */);
       });
 </script>
 <script>
