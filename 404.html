@@ -39,7 +39,7 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
       $(document).ready(function(){
-        $("#div1").load("http://mysterious-Palace.github.io/markdown/so/README.md",
+        $("#div1").load("http://"+document.domain+"/markdown/so/README.md",
           function(responseTxt,statusTxt,xhr){
             if(statusTxt=="success")
               alert("外部内容加载成功！");
