@@ -40,14 +40,14 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
       $(document).ready(function(){
-        $("#div1").load("http://mysterious-Palace.github.com/markdown/so/README.html"/*,
+        $("#div1").load("http://mysterious-Palace.github.com/markdown/so/README.html",
           function(responseTxt,statusTxt,xhr){
             if(statusTxt=="success")
               alert("外部内容加载成功！");
             if(statusTxt=="error")
               alert("Error: "+xhr.status+": "+xhr.statusText);
           }
-        */);
+        );
       });
 </script>
       
